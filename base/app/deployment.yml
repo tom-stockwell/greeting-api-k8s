@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeting-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: greeting-api
+  template:
+    metadata:
+      labels:
+        deployment: greeting-api
+    spec:
+      containers:
+      - name: greeting-api
+        image: quay.io/gh-stocky37/greeting-api:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          protocol: TCP
