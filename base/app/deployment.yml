@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: greeting-api
+  labels:
+    app.openshift.io/runtime: quarkus
 spec:
   replicas: 1
   selector:
@@ -19,3 +21,27 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
+        env:
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              key: database-name
+              name: greeting-db
+        - name: QUARKUS_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: database-user
+              name: greeting-db
+        - name: QUARKUS_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: greeting-db
+        livenessProbe:
+          httpGet:
+            path: /q/health/live
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /q/health/ready
+            port: 8080

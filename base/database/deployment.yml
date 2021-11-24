@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeting-db
+  labels:
+    app.openshift.io/runtime: postgresql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: greeting-db
+  template:
+    metadata:
+      labels:
+        deployment: greeting-db
+    spec:
+      containers:
+      - name: postgresql
+        image: image-registry.openshift-image-registry.svc:5000/openshift/postgresql:12-el8
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: POSTGRESQL_USER
+          valueFrom:
+            secretKeyRef:
+              key: database-user
+              name: greeting-db
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: greeting-db
+        - name: POSTGRESQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              key: database-name
+              name: greeting-db
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        livenessProbe:
+          exec:
+            command: ['/usr/libexec/check-container', '--live']
+          initialDelaySeconds: 120
+          timeoutSeconds: 10
+        readinessProbe:
+          exec:
+            command: ['/usr/libexec/check-container']
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        resources:
+          limits:
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /var/lib/pgsql/data
+          name: data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: greeting-db

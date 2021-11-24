@@ -1,2 +1,17 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+commonAnnotations:
+  app.openshift.io/vcs-uri: https://github.com/stocky37/ex-greeting-api.git
+
+commonLabels:
+  app: greeting-db
+  app.kubernetes.io/name: greeting-db
+  app.kubernetes.io/instance: greeting-db
+  app.kubernetes.io/component: database
+
+resources:
+- deployment.yml
+- persistentvolumeclaim.yml
+- secret.yml
+- service.yml
