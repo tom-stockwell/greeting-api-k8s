@@ -3,11 +3,11 @@ kind: Kustomization
 namespace: example-app-production
 
 commonLabels:
-  environment: production
+  environment: &env production
 
 resources:
 - ../../base
 
 images:
   - name: quay.io/gh-stocky37/greeting-api
-    newTag: production
+    newTag: *env

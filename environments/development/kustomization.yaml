@@ -3,14 +3,15 @@ kind: Kustomization
 namespace: example-app-development
 
 commonLabels:
-  environment: development
+  environment: &env development
 
 resources:
 - ../../base
 
 images:
   - name: quay.io/gh-stocky37/greeting-api
-    newTag: development
+    newTag: *env
+
 
 replacements:
 - source:

@@ -3,14 +3,15 @@ kind: Kustomization
 namespace: example-app-staging
 
 commonLabels:
-  environment: staging
+  environment: &env staging
 
 resources:
 - ../../base
 
 images:
   - name: quay.io/gh-stocky37/greeting-api
-    newTag: staging
+    newTag: *env
+
 
 replacements:
 - source:
