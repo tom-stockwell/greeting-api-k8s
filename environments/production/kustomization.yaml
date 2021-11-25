@@ -11,15 +11,3 @@ resources:
 images:
   - name: quay.io/gh-stocky37/greeting-api
     newTag: production
-
-replacements:
-- source:
-    kind: Route
-    fieldPath: metadata.labels.environment
-  targets:
-  - select:
-      kind: Route
-    fieldPaths: ['spec.host']
-    options:
-      delimiter: '.'
-      index: -1
