@@ -3,24 +3,25 @@ kind: Kustomization
 namespace: example-app-development
 
 commonLabels:
-  environment: &env development
+  environment: development
 
 resources:
 - ../../base
 
 images:
-  - name: quay.io/gh-stocky37/greeting-api
-    newTag: *env
+- digest: sha256:c0f10db5a97a951907dcb13afb687d846de4cf0a877857f371b57174fca94063
+  name: quay.io/gh-stocky37/greeting-api
 
 
 replacements:
 - source:
-    kind: Route
     fieldPath: metadata.labels.environment
+    kind: Route
   targets:
-  - select:
-      kind: Route
-    fieldPaths: ['spec.host']
+  - fieldPaths:
+    - spec.host
     options:
-      delimiter: '.'
+      delimiter: .
       index: -1
+    select:
+      kind: Route
