@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: examples-dev
+
+commonLabels:
+  environment: dev
+
+resources:
+  - ../../base
+
+images:
+  - digest: sha256:73051e914030a0b6da77b7fc277d57ad0cef7783e3a8a4e82244af0cf3835e14
+    name: quay.io/tstockwell/greeting-api
+
+replacements:
+  - source:
+      kind: Route
+      fieldPath: metadata.labels.environment
+    targets:
+      - select:
+          kind: Route
+        fieldPaths: ['spec.host']
+        options:
+          delimiter: '.'
+          index: -1

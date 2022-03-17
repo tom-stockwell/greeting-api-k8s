@@ -3,9 +3,9 @@ kind: Route
 metadata:
   name: greeting-api
 spec:
-  host: api.example-app.apps.paas.lab.stocky37.dev
+  host: api.greeting.examples.apps.paas.lab.stocky37.dev
   port:
-    targetPort: 8080
+    targetPort: http
   to:
     kind: Service
     name: greeting-api
