@@ -6,20 +6,21 @@ commonLabels:
   environment: dev
 
 resources:
-  - ../../base
+- ../../base
 
 images:
-  - digest: sha256:73051e914030a0b6da77b7fc277d57ad0cef7783e3a8a4e82244af0cf3835e14
-    name: quay.io/tstockwell/greeting-api
+- digest: sha256:e152454cda0d4dad6084a794934c7b1df4fcf8df200cce63a31ced2901b6d4c6
+  name: quay.io/tstockwell/greeting-api
 
 replacements:
-  - source:
+- source:
+    fieldPath: metadata.labels.environment
+    kind: Route
+  targets:
+  - fieldPaths:
+    - spec.host
+    options:
+      delimiter: .
+      index: -1
+    select:
       kind: Route
-      fieldPath: metadata.labels.environment
-    targets:
-      - select:
-          kind: Route
-        fieldPaths: ['spec.host']
-        options:
-          delimiter: '.'
-          index: -1
