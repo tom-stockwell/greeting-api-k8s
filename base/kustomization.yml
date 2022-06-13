@@ -2,10 +2,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 commonAnnotations:
-  app.openshift.io/vcs-uri: https://github.com/stocky37/ex-greeting-api.git
+  app.openshift.io/vcs-uri: https://github.com/tom-stockwell/greeting-api.git
 
 commonLabels:
-  app.kubernetes.io/part-of: example-app
+  app.kubernetes.io/part-of: greeting-app
 
 resources:
 - app

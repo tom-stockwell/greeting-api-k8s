@@ -1,0 +1,6 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: greeting-api
+spec:
+  host: greeting-api.demo-gitops-cicd-stage.apps.paas.lab.stocky37.dev
