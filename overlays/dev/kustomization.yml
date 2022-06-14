@@ -1,15 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: demo-gitops-cicd-dev
 
 commonLabels:
   environment: dev
 
 resources:
-  - ../../base
-
-patches:
-- path: patch-route.yml
+- app
+- argocd
 
 images:
   - digest: sha256:73051e914030a0b6da77b7fc277d57ad0cef7783e3a8a4e82244af0cf3835e14
