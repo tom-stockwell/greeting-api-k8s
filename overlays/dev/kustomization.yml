@@ -9,5 +9,5 @@ resources:
 - argocd
 
 images:
-- digest: sha256:28dfd3b20124f04c2eeecd4073f53ada5216d81fe3992d7bc2ff3c2646bf919a
+- digest: sha256:78dd730076b7d1c576e31f762488ef70b62bf6aff86297fbcbc750645d884e4c
   name: quay.io/tstockwell/greeting-api
